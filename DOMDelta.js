@@ -20,12 +20,14 @@
     if(nodeTypes.indexOf(this.nodeType) == -1) nodeTypes.push(this.nodeType);
     
     var tempstyle = window.getComputedStyle(this);
-    var style = {};
+    var style = null;
     
     // Deep copy the computed style in case the function returns the same object
-    $.each(tempstyle, function(key, value) {
-      style[key] = value;
-    });
+    if(tempstyle) {
+      $.each(tempstyle, function(key, value) {
+        style[key] = value;
+      });
+    }
     
     if(jqThis.contents().length > 0) {
       // Make sure children are processed first so we can get a UID for each of them
