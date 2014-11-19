@@ -30,6 +30,23 @@
         style[key] = value;
       });
     }
+
+    var attrNames = null;
+    var attrVals = null;
+
+    // Gather attributes
+    if(this.attributes) {
+    	attrNames = [];
+    	attrVals = [];
+
+    	for (var i = 0; i < this.attributes.length; i++) {
+		  var attrib = this.attributes[i];
+		  if (attrib.specified) {
+		  	attrNames.push(attrib.name);
+		  	attrVals.push(attrib.value);
+		  }
+		}
+    }
     
     if(jqThis.contents().length > 0) {
       // Make sure children are processed first so we can get a UID for each of them
@@ -42,7 +59,7 @@
     }
     
     // Record the state of affairs for the node
-    currentState[thisUID] = {style: style, children:childs, childrenIDs:childIDs, dom:this, classList: this.className ? this.className.split(' ') : null };
+    currentState[thisUID] = {style: style, children:childs, childrenIDs:childIDs, dom:this, attrNames:attrNames, attrVals:attrVals, classList: this.className ? this.className.split(' ') : null };
   });
   
   console.log("NodeTypes", nodeTypes);
@@ -67,6 +84,10 @@
       var prevStyle = prevState[i].style;
       var classList = currentState[i].classList;
       var prevClassList = prevState[i].classList;
+      var attrNames = currentState[i].attrNames;
+      var prevAttrNames = prevState[i].attrNames;
+      var attrVals = currentState[i].attrVals;
+      var prevAttrVals = prevState[i].attrVals;
 
       // Find class add/removals
       if(classList) {
@@ -97,6 +118,42 @@
       else {
       	if(prevClassList) {
       		console.log("Removed classes from: ", dom, "Classes: ", classList);
+      	}
+      }
+
+      // Find attribute add/remove/change
+      if(attrNames) {
+      	if(prevAttrNames) {
+      		// Adds/changes
+      		$.each(attrNames, function(index, attrObj) {
+      			// Adds
+      			if(prevAttrNames.indexOf(attrObj) == -1) {
+      				console.log("Added attribute to: ", dom, "Attribute: ", attrObj);
+      			}
+
+      			// Changes
+      			else {
+      				if(attrVals[index] != prevAttrVals[index]) {
+      					console.log("Changed attribute on: ", dom, "Prev: ", prevAttrVals[index], "New: ", attrVals[index]);
+      				}
+      			}
+      		});
+      		// Removes
+      		$.each(prevAttrNames, function(index, attrObj) {
+      			if(attrNames.indexOf(attrObj) == -1) {
+      				console.log("Removed attribute from: ", dom, "Attribute: ", attrObj);
+      			}
+      		});
+      	}
+
+      	else {
+      		console.log("Added attributes to: ", dom, "Attributes: ", attrNames, attrVals);
+      	}
+      }
+
+      else {
+      	if(prevAttrNames) {
+      		console.log("Removed attributes from: ", dom, "Attributes: ", prevAttrNames);
       	}
       }
       
