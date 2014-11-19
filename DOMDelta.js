@@ -2,6 +2,7 @@
   var prevState = ns.prevState || [];
   var currentState = [];
   var domGUID = ns.domGUID || 0;
+  var nodeTypes = [];
   
   $('body').contents().each(function processNodes() {
     var jqThis = $(this);
@@ -15,7 +16,7 @@
       val += "ADDED NODE: " + this.domDeltaID + "; ";
     }
     
-    console.log("NodeType", this.nodeType);
+    if(!(this.nodeType in nodeTypes)) nodeTypes.push(this.nodeType);
     
     if(jqThis.contents().length > 0) {
       // Make sure children are processed first so we can get a UID for each of them
@@ -29,6 +30,7 @@
     currentState[thisUID] = {value: val, children:childs};
   });
   
+  console.log("NodeTypes", nodeTypes);
   ns.prevState = currentState;
   ns.domGUID = domGUID;
   
