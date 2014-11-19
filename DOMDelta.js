@@ -115,7 +115,7 @@
       		$.each(classList, function(index, className) {
       			if(className.trim().length > 0) {
 	      			if(prevClassList.indexOf(className) == -1) {
-	      				changelist.push["Added class to: ", dom, "Class: ", className];
+	      				changelist.push(["Added class to: ", dom, "Class: ", className]);
 	      			}
       			}
       		});
@@ -123,20 +123,20 @@
       		$.each(prevClassList, function(index, className) {
       			if(className.trim().length > 0) {
 	      			if(classList.indexOf(className) == -1) {
-	      				changelist.push["Removed class from: ", dom, "Class: ", className];
+	      				changelist.push(["Removed class from: ", dom, "Class: ", className]);
 	      			}
       			}
       		});
       	}
 
       	else {
-      		changelist.push["Added classes to: ", dom, "Classes: ", classList];
+      		changelist.push(["Added classes to: ", dom, "Classes: ", classList]);
       	}
       }
 
       else {
       	if(prevClassList) {
-      		changelist.push["Removed classes from: ", dom, "Classes: ", classList];
+      		changelist.push(["Removed classes from: ", dom, "Classes: ", classList]);
       	}
       }
 
@@ -147,32 +147,32 @@
       		$.each(attrNames, function(index, attrObj) {
       			// Adds
       			if(prevAttrNames.indexOf(attrObj) == -1) {
-      				changelist.push["Added attribute to: ", dom, "Attribute: ", attrObj];
+      				changelist.push(["Added attribute to: ", dom, "Attribute: ", attrObj]);
       			}
 
       			// Changes
       			else {
       				if(attrVals[index] != prevAttrVals[index]) {
-      					changelist.push["Changed attribute on: ", dom, "Prev: ", prevAttrVals[index], "New: ", attrVals[index]];
+      					changelist.push(["Changed attribute on: ", dom, "Prev: ", prevAttrVals[index], "New: ", attrVals[index]]);
       				}
       			}
       		});
       		// Removes
       		$.each(prevAttrNames, function(index, attrObj) {
       			if(attrNames.indexOf(attrObj) == -1) {
-      				changelist.push["Removed attribute from: ", dom, "Attribute: ", attrObj];
+      				changelist.push(["Removed attribute from: ", dom, "Attribute: ", attrObj]);
       			}
       		});
       	}
 
       	else {
-      		changelist.push["Added attributes to: ", dom, "Attributes: ", attrNames, attrVals];
+      		changelist.push(["Added attributes to: ", dom, "Attributes: ", attrNames, attrVals]);
       	}
       }
 
       else {
       	if(prevAttrNames) {
-      		changelist.push["Removed attributes from: ", dom, "Attributes: ", prevAttrNames];
+      		changelist.push(["Removed attributes from: ", dom, "Attributes: ", prevAttrNames]);
       	}
       }
 
@@ -183,13 +183,13 @@
       		$.each(styleNames, function(index, styleObj) {
       			// Adds
       			if(prevStyleNames.indexOf(styleObj) == -1) {
-      				changelist.push["Added style to: ", dom, "Style: ", styleObj];
+      				changelist.push(["Added style to: ", dom, "Style: ", styleObj]);
       			}
 
       			// Changes
       			else {
       				if(styleVals[index] != prevStyleVals[index]) {
-      					changelist.push["Changed style:", styleObj, "on:", dom, "Prev:", prevStyleVals[index], "New:", styleVals[index]];
+      					changelist.push(["Changed style:", styleObj, "on:", dom, "Prev:", prevStyleVals[index], "New:", styleVals[index]]);
       				}
       			}
 
@@ -198,19 +198,19 @@
       		// Removes
       		$.each(prevStyleNames, function(index, styleObj) {
       			if(styleNames.indexOf(styleObj) == -1) {
-      				changelist.push["Removed style from: ", dom, "Style: ", styleObj];
+      				changelist.push(["Removed style from: ", dom, "Style: ", styleObj]);
       			}
       		});
       	}
 
       	else {
-      		changelist.push["Added styles to: ", dom, "Styles: ", styleNames, styleVals];
+      		changelist.push(["Added styles to: ", dom, "Styles: ", styleNames, styleVals]);
       	}
       }
 
       else {
       	if(prevStyleNames) {
-      		changelist.push["Removed styles from: ", dom, "Styles: ", prevStyleNames];
+      		changelist.push(["Removed styles from: ", dom, "Styles: ", prevStyleNames]);
       	}
       }
       
@@ -220,12 +220,12 @@
         $.each(style, function(key, value) {
           if(key in prevStyle) {
             if((prevStyle[key] != style[key])) {
-              changelist.push["DOM Node:", dom, "Property", key, "PREV: ", prevStyle[key], "NEW: ", style[key]];
+              changelist.push(["DOM Node:", dom, "Property", key, "PREV: ", prevStyle[key], "NEW: ", style[key]]);
             }
           }
           
           else {
-            changelist.push["DOM Node:", dom, "New Property", key, "NEW: ", style[key]];
+            changelist.push(["DOM Node:", dom, "New Property", key, "NEW: ", style[key]]);
           }
           
           testsRan++;
@@ -234,7 +234,7 @@
         // Find removed properties
         $.each(prevStyle, function(key, value) {
           if(!(key in style)) {
-            changelist.push["DOM Node:", dom, "Removed Property", key, "NEW: ", style[key]];
+            changelist.push(["DOM Node:", dom, "Removed Property", key, "NEW: ", style[key]]);
           }
         });
       }
@@ -242,12 +242,12 @@
       // Now diff children additions/removals
       $.each(currentState[i].childrenIDs, function(index, value) {
         if(prevState[i].childrenIDs.indexOf(value) == -1) {
-          changelist.push["Added child to: ", dom, "Child: ", currentState[i].children[index]];
+          changelist.push(["Added child to: ", dom, "Child: ", currentState[i].children[index]]);
         }
       });
       $.each(prevState[i].childrenIDs, function(index, value) {
         if(currentState[i].childrenIDs.indexOf(value) == -1) {
-          changelist.push["Removed child from: ", dom, "Child: ", prevState[i].children[index]];
+          changelist.push(["Removed child from: ", dom, "Child: ", prevState[i].children[index]]);
         }
       });
 
