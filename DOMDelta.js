@@ -87,20 +87,21 @@
           }
         });
       }
+      
+      // Now diff children additions/removals
+      $.each(currentState[i].childrenIDs, function(index, value) {
+        if(prevState[i].childrenIDs.indexOf(value) == -1) {
+          console.log("Added child to: ", dom, "Child: ", currentState[i].children[value]);
+        }
+      });
+      $.each(prevState[i].childrenIDs, function(index, value) {
+        if(currentState[i].childrenIDs.indexOf(value) == -1) {
+          console.log("Removed child from: ", dom, "Child: ", prevState[i].children[value]);
+        }
+      });
     }
-    console.log("Tested " + testsRan + " properties for differences.");
     
-    // Now diff children additions/removals
-    $.each(currentState[i].childrenIDs, function(index, value) {
-      if(prevState[i].childrenIDs.indexOf(value) == -1) {
-        console.log("Added child to: ", dom, "Child: ", currentState[i].children[value]);
-      }
-    });
-    $.each(prevState[i].childrenIDs, function(index, value) {
-      if(currentState[i].childrenIDs.indexOf(value) == -1) {
-        console.log("Removed child from: ", dom, "Child: ", prevState[i].children[value]);
-      }
-    });
+    console.log("Tested " + testsRan + " properties for differences.");
   }
   
   else {
