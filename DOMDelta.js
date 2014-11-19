@@ -47,7 +47,7 @@
       var prevStyle = prevState[i].style;
       
       // Make sure a style was generated for our item in question
-      if(style) {
+      if(style && prevStyle) {
         $.each(style, function(key, value) {
           if(key in prevStyle) {
             if(!(prevStyle[key] === style[key])) {
