@@ -251,7 +251,7 @@
         }
       });
 
-      console.log("ELEMENT:", dom, "CHANGES", changelist);
+      if(changelist.length > 0) console.log("ELEMENT:", dom, "CHANGES", changelist);
     }
     
     console.log("Tested " + testsRan + " properties for differences.");
