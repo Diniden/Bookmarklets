@@ -36,7 +36,7 @@
   console.log("Previous State", ns.prevState);
   console.log("Current State", currentState);
   
-  if(prevState) {
+  if(prevState.length > 0) {
     console.log("Calculating Diff...");
     for(var i=0,end=currentState.length; i!=end; ++i) {
       var style = currentState[i].style;
