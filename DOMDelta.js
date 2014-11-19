@@ -42,7 +42,7 @@
     }
     
     // Record the state of affairs for the node
-    currentState[thisUID] = {style: style, children:childs, childrenIDs:childIDs, dom:this};
+    currentState[thisUID] = {style: style, children:childs, childrenIDs:childIDs, dom:this, classList: this.className.split(' ') };
   });
   
   console.log("NodeTypes", nodeTypes);
@@ -58,10 +58,47 @@
         console.log("Added element: ", currentState[i]);
         continue;
       }
+
+      if(currentState[i]) {}
+      else { console.log("POSSIBLY REMOVED: Undefined current state element"); continue; }
       
       var dom = currentState[i].dom;
       var style = currentState[i].style;
       var prevStyle = prevState[i].style;
+      var classList = currentState[i].classList;
+      var prevClassList = prevState[i].classList;
+
+      // Find class add/removals
+      if(classList) {
+      	if(prevClassList) {
+      		// Adds
+      		$.each(classList, function(index, className) {
+      			if(className.trim().length > 0) {
+	      			if(prevClassList.indexOf(className) == -1) {
+	      				console.log("Added class to: ", dom, "Class: ", className);
+	      			}
+      			}
+      		});
+      		// Removes
+      		$.each(prevClassList, function(index, className) {
+      			if(className.trim().length > 0) {
+	      			if(classList.indexOf(className) == -1) {
+	      				console.log("Removed class from: ", dom, "Class: ", className);
+	      			}
+      			}
+      		});
+      	}
+
+      	else {
+      		console.log("Added classes to: ", dom, "Classes: ", classList);
+      	}
+      }
+
+      else {
+      	if(prevClassList) {
+      		console.log("Removed classes from: ", dom, "Classes: ", classList);
+      	}
+      }
       
       // Make sure a style was generated for our item in question
       if(style && prevStyle) {
