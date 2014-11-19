@@ -252,10 +252,12 @@
       });
 
       if(changelist.length > 0) {
+      	var changelistSummaries = [];
       	$.each(changelist, function(index, value) {
-      		changelist[index] = {summary: changelist[index].join(" "), details: changelist[index]};
+      		changelistSummaries.push(changelist[index].join(" "));
+      		changelistSummaries.push(changelist[index]);
       	});
-      	console.log("ELEMENT:", dom, "CHANGES:", changelist);
+      	console.log("ELEMENT:", dom, "CHANGES:", {changes: changelistSummaries});
       }
     }
     
@@ -278,5 +280,7 @@
     ns.prevState = currentState;
   	ns.domGUID = domGUID;
   }
+  
+  
   
 })(window.top);
