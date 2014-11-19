@@ -35,6 +35,31 @@
   console.log("NodeTypes", nodeTypes);
   console.log("Previous State", ns.prevState);
   console.log("Current State", currentState);
+  
+  if(prevState) {
+    console.log("Calculating Diff...");
+    for(var i=0,end=currentState.length; i!=end; ++i) {
+      var style = currentState[i].style;
+      var prevStyle = prevState[i].style;
+      
+      $.each(style, function(key, value) {
+        if(key in prevStyle) {
+          if(!(prevStyle[key] === style[key])) {
+            console.log("Property", key, "PREV: ", prevStyle[key], "NEW: ", style[key]);
+          }
+        }
+        
+        else {
+          console.log("New Property", key, "NEW: ", style[key]);
+        }
+      });
+    }
+  }
+  
+  else {
+    console.log("First frame captured, run again after making some changes to see diff");
+  }
+  
   ns.prevState = currentState;
   ns.domGUID = domGUID;
   
