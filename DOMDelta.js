@@ -191,6 +191,8 @@
       					console.log("Changed style:", styleObj, "on:", dom, "Prev:", prevStyleVals[index], "New:", styleVals[index]);
       				}
       			}
+
+      			testsRan++;
       		});
       		// Removes
       		$.each(prevStyleNames, function(index, styleObj) {
