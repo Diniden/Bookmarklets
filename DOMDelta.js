@@ -1,7 +1,7 @@
 (function(ns) {
   var prevState = ns.prevState || [];
   var currentState = [];
-  var domGUID = ns.domGUID || 0;
+  var domGUID = ns.domGUID = ns.domGUID || 0;
   var nodeTypes = [];
   
   $('body').contents().each(function processNodes() {
