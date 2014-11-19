@@ -62,9 +62,9 @@
     currentState[thisUID] = {style: style, children:childs, childrenIDs:childIDs, dom:this, attrNames:attrNames, attrVals:attrVals, classList: this.className ? this.className.split(' ') : null };
   });
   
-  console.log("NodeTypes", nodeTypes);
-  console.log("Previous State", ns.prevState);
-  console.log("Current State", currentState);
+  // console.log("NodeTypes", nodeTypes);
+  // console.log("Previous State", ns.prevState);
+  // console.log("Current State", currentState);
   
   if(prevState.length > 0) {
     var testsRan = 0;
