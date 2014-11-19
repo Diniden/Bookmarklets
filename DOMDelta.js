@@ -42,7 +42,7 @@
     }
     
     // Record the state of affairs for the node
-    currentState[thisUID] = {style: style, children:childs, childrenIDs:childIDs, dom:this, classList: this.className.split(' ') };
+    currentState[thisUID] = {style: style, children:childs, childrenIDs:childIDs, dom:this, classList: this.className ? this.className.split(' ') : null };
   });
   
   console.log("NodeTypes", nodeTypes);
