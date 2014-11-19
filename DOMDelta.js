@@ -187,8 +187,8 @@
 
       			// Changes
       			else {
-      				if(attrVals[index] != prevStyleVals[index]) {
-      					console.log("Changed style:", styleObj, "on:", dom, "Prev:", prevStyleVals[index], "New:", attrVals[index]);
+      				if(styleVals[index] != prevStyleVals[index]) {
+      					console.log("Changed style:", styleObj, "on:", dom, "Prev:", prevStyleVals[index], "New:", styleVals[index]);
       				}
       			}
       		});
@@ -201,7 +201,7 @@
       	}
 
       	else {
-      		console.log("Added styles to: ", dom, "Styles: ", styleNames, attrVals);
+      		console.log("Added styles to: ", dom, "Styles: ", styleNames, styleVals);
       	}
       }
 
