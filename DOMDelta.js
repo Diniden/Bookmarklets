@@ -16,7 +16,7 @@
       val += "ADDED NODE: " + this.domDeltaID + "; ";
     }
     
-    if(!(this.nodeType in nodeTypes)) nodeTypes.push(this.nodeType);
+    if(nodeTypes.indexOf(this.nodeType) >= 0) nodeTypes.push(this.nodeType);
     
     if(jqThis.contents().length > 0) {
       // Make sure children are processed first so we can get a UID for each of them
