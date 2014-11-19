@@ -128,12 +128,12 @@
       // Now diff children additions/removals
       $.each(currentState[i].childrenIDs, function(index, value) {
         if(prevState[i].childrenIDs.indexOf(value) == -1) {
-          console.log("Added child to: ", dom, "Child: ", currentState[i].children[value]);
+          console.log("Added child to: ", dom, "Child: ", currentState[i].children[index]);
         }
       });
       $.each(prevState[i].childrenIDs, function(index, value) {
         if(currentState[i].childrenIDs.indexOf(value) == -1) {
-          console.log("Removed child from: ", dom, "Child: ", prevState[i].children[value]);
+          console.log("Removed child from: ", dom, "Child: ", prevState[i].children[index]);
         }
       });
     }
