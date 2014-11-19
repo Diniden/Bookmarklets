@@ -25,6 +25,7 @@
     
     // Deep copy the computed style in case the function returns the same object
     if(tempstyle) {
+      style = {};
       $.each(tempstyle, function(key, value) {
         style[key] = value;
       });
