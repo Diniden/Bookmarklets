@@ -47,6 +47,20 @@
 		  }
 		}
     }
+
+    var styleNames = null;
+    var styleVals = null;
+
+    // Gather attributes
+    if(this.style) {
+    	styleNames = [];
+    	styleVals = [];
+
+    	for (var sName in this.style) {
+		  	styleNames.push(sName);
+		  	styleVals.push(this.style[sName]);
+		}
+    }
     
     if(jqThis.contents().length > 0) {
       // Make sure children are processed first so we can get a UID for each of them
@@ -59,7 +73,7 @@
     }
     
     // Record the state of affairs for the node
-    currentState[thisUID] = {style: style, children:childs, childrenIDs:childIDs, dom:this, attrNames:attrNames, attrVals:attrVals, classList: this.className ? this.className.split(' ') : null };
+    currentState[thisUID] = {style: style, children:childs, childrenIDs:childIDs, dom:this, styleNames:styleNames, styleVals:styleVals, attrNames:attrNames, attrVals:attrVals, classList: this.className ? this.className.split(' ') : null };
   });
   
   // console.log("NodeTypes", nodeTypes);
@@ -88,6 +102,10 @@
       var prevAttrNames = prevState[i].attrNames;
       var attrVals = currentState[i].attrVals;
       var prevAttrVals = prevState[i].attrVals;
+      var styleNames = currentState[i].styleNames;
+      var prevStyleNames = prevState[i].styleNames;
+      var styleVals = currentState[i].styleVals;
+      var prevStyleVals = prevState[i].styleVals;
 
       // Find class add/removals
       if(classList) {
@@ -154,6 +172,42 @@
       else {
       	if(prevAttrNames) {
       		console.log("Removed attributes from: ", dom, "Attributes: ", prevAttrNames);
+      	}
+      }
+
+      // Find style add/remove/change
+      if(styleNames) {
+      	if(prevStyleNames) {
+      		// Adds/changes
+      		$.each(styleNames, function(index, styleObj) {
+      			// Adds
+      			if(prevStyleNames.indexOf(styleObj) == -1) {
+      				console.log("Added style to: ", dom, "Style: ", styleObj);
+      			}
+
+      			// Changes
+      			else {
+      				if(attrVals[index] != prevStyleVals[index]) {
+      					console.log("Changed style:", styleObj, "on:", dom, "Prev:", prevStyleVals[index], "New:", attrVals[index]);
+      				}
+      			}
+      		});
+      		// Removes
+      		$.each(prevStyleNames, function(index, styleObj) {
+      			if(styleNames.indexOf(styleObj) == -1) {
+      				console.log("Removed style from: ", dom, "Style: ", styleObj);
+      			}
+      		});
+      	}
+
+      	else {
+      		console.log("Added styles to: ", dom, "Styles: ", styleNames, attrVals);
+      	}
+      }
+
+      else {
+      	if(prevStyleNames) {
+      		console.log("Removed styles from: ", dom, "Styles: ", prevStyleNames);
       	}
       }
       
