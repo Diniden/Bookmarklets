@@ -70,6 +70,12 @@
           testsRan++;
         });
       }
+      
+      $.each(prevStyle, function(key, value) {
+        if(!(key in style)) {
+          console.log("DOM Node:", dom, "Removed Property", key, "NEW: ", style[key]);
+        }
+      });
     }
     console.log("Tested " + testsRan + " properties for differences.");
   }
