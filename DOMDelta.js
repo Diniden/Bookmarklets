@@ -65,6 +65,7 @@
       
       // Make sure a style was generated for our item in question
       if(style && prevStyle) {
+        // Find changed and added properties
         $.each(style, function(key, value) {
           if(key in prevStyle) {
             if(!(prevStyle[key] === style[key])) {
@@ -78,13 +79,14 @@
           
           testsRan++;
         });
+        
+        // Find removed properties
+        $.each(prevStyle, function(key, value) {
+          if(!(key in style)) {
+            console.log("DOM Node:", dom, "Removed Property", key, "NEW: ", style[key]);
+          }
+        });
       }
-      
-      $.each(prevStyle, function(key, value) {
-        if(!(key in style)) {
-          console.log("DOM Node:", dom, "Removed Property", key, "NEW: ", style[key]);
-        }
-      });
     }
     console.log("Tested " + testsRan + " properties for differences.");
     
@@ -94,7 +96,6 @@
         console.log("Added child to: ", dom, "Child: ", currentState[i].children[value]);
       }
     });
-    
     $.each(prevState[i].childrenIDs, function(index, value) {
       if(currentState[i].childrenIDs.indexOf(value) == -1) {
         console.log("Removed child from: ", dom, "Child: ", prevState[i].children[value]);
