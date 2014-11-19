@@ -9,6 +9,7 @@
     var jqThis = $(this);
     var val = "";
     var childs = [];
+    var childIDs = [];
     var thisUID = -1;
     
     if(this.domDeltaID) { thisUID = this.domDeltaID; }
@@ -35,11 +36,12 @@
       
       jqThis.contents().each(function() {
         childs.push(this);
+        childIDs.push(this.domDeltaID);
       });
     }
     
     // Record the state of affairs for the node
-    currentState[thisUID] = {style: style, children:childs, dom:this};
+    currentState[thisUID] = {style: style, children:childs, childrenIDs:childIDs, dom:this};
   });
   
   console.log("NodeTypes", nodeTypes);
@@ -50,6 +52,12 @@
     var testsRan = 0;
     console.log("Calculating Diff...");
     for(var i=0,end=currentState.length; i!=end; ++i) {
+      // See if the UID exists in the prev state
+      if(!(i in prevState)) {
+        console.log("Added element: ", currentState[i]);
+        continue;
+      }
+      
       var dom = currentState[i].dom;
       var style = currentState[i].style;
       var prevStyle = prevState[i].style;
@@ -78,6 +86,19 @@
       });
     }
     console.log("Tested " + testsRan + " properties for differences.");
+    
+    // Now diff children additions/removals
+    $.each(currentState[i].childrenIDs, function(index, value) {
+      if(prevState[i].childrenIDs.indexOf(value) == -1) {
+        console.log("Added child to: ", dom, "Child: ", currentState[i].children[value]);
+      }
+    });
+    
+    $.each(prevState[i].childrenIDs, function(index, value) {
+      if(currentState[i].childrenIDs.indexOf(value) == -1) {
+        console.log("Removed child from: ", dom, "Child: ", prevState[i].children[value]);
+      }
+    });
   }
   
   else {
