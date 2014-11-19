@@ -39,6 +39,7 @@
   console.log("Current State", currentState);
   
   if(prevState.length > 0) {
+    var testsRan = 0;
     console.log("Calculating Diff...");
     for(var i=0,end=currentState.length; i!=end; ++i) {
       var dom = currentState[i].dom;
@@ -57,9 +58,12 @@
           else {
             console.log("DOM Node:", dom, "New Property", key, "NEW: ", style[key]);
           }
+          
+          testsRan++;
         });
       }
     }
+    console.log("Tested " + testsRan + " properties for differences.");
   }
   
   else {
