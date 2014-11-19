@@ -281,6 +281,6 @@
   	ns.domGUID = domGUID;
   }
   
-  
-  
 })(window.top);
+
+console.log("DOM delta", "1.0.1");
