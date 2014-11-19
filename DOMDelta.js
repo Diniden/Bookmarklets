@@ -196,13 +196,25 @@
     }
     
     console.log("Tested " + testsRan + " properties for differences.");
+
+    // CLean out UIDs and reset the diff capture
+    ns.prevState = null;
+    ns.domGUID = null;
+
+
+    $('body').contents().each(function cleanNodes() {
+    	var jqNode = $(this);
+    	this.domDeltaID = null;
+    	if(jqNode.contents().length > 0) jqNode.contents().each(cleanNodes);
+    });
   }
   
   else {
     console.log("First frame captured, run again after making some changes to see diff");
+    ns.prevState = currentState;
+  	ns.domGUID = domGUID;
   }
   
-  ns.prevState = currentState;
-  ns.domGUID = domGUID;
+  
   
 })(window.top);
