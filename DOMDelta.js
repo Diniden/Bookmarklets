@@ -105,7 +105,7 @@
         // Find changed and added properties
         $.each(style, function(key, value) {
           if(key in prevStyle) {
-            if(!(prevStyle[key] === style[key])) {
+            if((prevStyle[key] != style[key])) {
               console.log("DOM Node:", dom, "Property", key, "PREV: ", prevStyle[key], "NEW: ", style[key]);
             }
           }
