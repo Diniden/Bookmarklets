@@ -16,7 +16,9 @@
       val += "ADDED NODE: " + this.domDeltaID + "; ";
     }
     
-    if(nodeTypes.indexOf(this.nodeType) >= 0) nodeTypes.push(this.nodeType);
+    if(nodeTypes.indexOf(this.nodeType) == -1) nodeTypes.push(this.nodeType);
+    
+    var style = window.getComputedStyle(this);
     
     if(jqThis.contents().length > 0) {
       // Make sure children are processed first so we can get a UID for each of them
@@ -27,10 +29,12 @@
       });
     }
     
-    currentState[thisUID] = {value: val, children:childs};
+    currentState[thisUID] = {style: style, children:childs};
   });
   
   console.log("NodeTypes", nodeTypes);
+  console.log("Previous State", ns.prevState);
+  console.log("Current State", currentState);
   ns.prevState = currentState;
   ns.domGUID = domGUID;
   
