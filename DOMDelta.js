@@ -27,7 +27,7 @@
     }
     
     currentState[thisUID] = {value: val, children:childs};
-  }
+  });
   
   ns.prevState = currentState;
   ns.domGUID = domGUID;
