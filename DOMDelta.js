@@ -3,7 +3,7 @@
   var currentState = [];
   var domGUID = ns.domGUID || 0;
   
-  $(body).contents().each(function processNodes() {
+  $('body').contents().each(function processNodes() {
     var jqThis = $(this);
     var val = "";
     var childs = [];
