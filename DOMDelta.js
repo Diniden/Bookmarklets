@@ -251,7 +251,12 @@
         }
       });
 
-      if(changelist.length > 0) console.log("ELEMENT:", dom, "CHANGES", changelist);
+      if(changelist.length > 0) {
+      	$.each(changelist, function(index, value) {
+      		changelist[index] = {summary: changelist[index].join(" "), details: changelist[index]};
+      	});
+      	console.log("ELEMENT:", dom, "CHANGES:", changelist);
+      }
     }
     
     console.log("Tested " + testsRan + " properties for differences.");
@@ -273,7 +278,5 @@
     ns.prevState = currentState;
   	ns.domGUID = domGUID;
   }
-  
-  
   
 })(window.top);
