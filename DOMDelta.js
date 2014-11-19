@@ -5,6 +5,7 @@
   var nodeTypes = [];
   
   $('body').contents().each(function processNodes() {
+    var selfNode = this;
     var jqThis = $(this);
     var val = "";
     var childs = [];
@@ -29,7 +30,8 @@
       });
     }
     
-    currentState[thisUID] = {style: style, children:childs};
+    // Record the state of affairs for the node
+    currentState[thisUID] = {style: style, children:childs, dom:this};
   });
   
   console.log("NodeTypes", nodeTypes);
@@ -39,20 +41,24 @@
   if(prevState.length > 0) {
     console.log("Calculating Diff...");
     for(var i=0,end=currentState.length; i!=end; ++i) {
+      var dom = currentState[i].dom;
       var style = currentState[i].style;
       var prevStyle = prevState[i].style;
       
-      $.each(style, function(key, value) {
-        if(key in prevStyle) {
-          if(!(prevStyle[key] === style[key])) {
-            console.log("Property", key, "PREV: ", prevStyle[key], "NEW: ", style[key]);
+      // Make sure a style was generated for our item in question
+      if(style) {
+        $.each(style, function(key, value) {
+          if(key in prevStyle) {
+            if(!(prevStyle[key] === style[key])) {
+              console.log("DOM Node:", dom, "Property", key, "PREV: ", prevStyle[key], "NEW: ", style[key]);
+            }
           }
-        }
-        
-        else {
-          console.log("New Property", key, "NEW: ", style[key]);
-        }
-      });
+          
+          else {
+            console.log("DOM Node:", dom, "New Property", key, "NEW: ", style[key]);
+          }
+        });
+      }
     }
   }
   
