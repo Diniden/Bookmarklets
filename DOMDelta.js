@@ -258,4 +258,4 @@
   
 })(window.top);
 
-console.log("DOM delta", "1.0.1");
+console.log("DOM delta", "1.0.2");
